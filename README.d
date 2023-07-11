@@ -1,7 +1,7 @@
 Jenkins CI_CD
-  Steps:
-    Run Jenkins on a container.
-
+  Important facts
+  default port: 8080
+    dependency for Jenkins: need Java in instance
 
 
 
@@ -12,4 +12,5 @@ Jenkins CI_CD
 
       Doubts
         -syntax for running a specific agent 
-          - practise running agent as docker container
+          - practice running the agent as a docker container
+          - backup Jenkins
