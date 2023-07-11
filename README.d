@@ -11,4 +11,5 @@ Jenkins CI_CD
 
 
       Doubts
-      -syntax for running a specific agent 
+        -syntax for running a specific agent 
+          - practise running agent as docker container
