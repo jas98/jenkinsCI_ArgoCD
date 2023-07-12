@@ -1,0 +1,5 @@
+sudo su
+apt update
+sudo apt install default-jre
+sudo apt install git
+sudo apt install docker.io
