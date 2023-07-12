@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: node-app1
+  name: node-app1
+spec:
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31520
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: node-app1
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
