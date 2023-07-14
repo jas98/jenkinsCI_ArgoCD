@@ -1,12 +1,8 @@
 
 pipeline {
     agent any
-    // Agent { label 'slave1' }      
-    // It will run on specific agents which have label slave1
-    // You can specify a specific agent inside particular stage also ,ex1
     stages {
         stage('Github') {
-    // Agent ( label 'aws-instance')
             steps {
                 echo 'Connecting to Github'
                 git branch: 'main', url: 'https://github.com/jas98/jenkins-CICD'
@@ -15,12 +11,9 @@ pipeline {
         
         stage('Create a docker Image') {
             steps {
-                 script{                //use script tag when using scripts (optional)
                 echo 'Creating a docker Image'
                 sh 'docker build -t jashan98/nodeapp:${BUILD_NUMBER} .'
-                sh 'docker images'
-
-}              
+                sh 'docker images'         
            }
         }
         
@@ -31,8 +24,7 @@ pipeline {
                     sh 'docker login -u jashan98 -p $pass'
                     sh 'docker push jashan98/nodeapp:${BUILD_NUMBER}'   
                                         }
-             
-              
+                     
             }
         }
         
