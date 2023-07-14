@@ -15,7 +15,7 @@ pipeline {
         
         stage('Create a docker Image') {
             steps {
-            **script**{
+                 script{                //use script tag when using scripts (optional)
                 echo 'Creating a docker Image'
                 sh 'docker build -t jashan98/nodeapp:${BUILD_NUMBER} .'
                 sh 'docker images'
@@ -25,7 +25,7 @@ pipeline {
         }
         
          stage('Pushing a docker Image to DockerHub') {
-            steps {
+           __ steps __ {
                 echo 'Pushing a docker Image to Dockerhub'
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'pass')]) {
                     sh 'docker login -u jashan98 -p $pass'
