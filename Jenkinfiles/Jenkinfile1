@@ -18,7 +18,7 @@ pipeline {
         }
         
          stage('Pushing a docker Image to DockerHub') {
-           __ steps __ {
+            steps {
                 echo 'Pushing a docker Image to Dockerhub'
                 withCredentials([string(credentialsId: 'dockerhub-token', variable: 'pass')]) {
                     sh 'docker login -u jashan98 -p $pass'
