@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: azcicd.azurecr.io/azcicd
+        image: azcicd.azurecr.io/cicd
         ports:
         - containerPort: 8000
