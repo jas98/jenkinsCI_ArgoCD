@@ -31,12 +31,13 @@ stages:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
+          latest
     - task: CopyFiles@2
       inputs:
         SourceFolder: 'azurecd/'
@@ -48,3 +49,31 @@ stages:
         PathtoPublish: '$(Pipeline.Workspace)/azurecd'
         ArtifactName: 'azurecd'
         publishLocation: 'Container'
+
+- stage: Deploy 
+  displayName: Deploy on kubernetes
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'createSecret'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubernetes-cluster'
+        namespace: 'default'
+        secretType: 'dockerRegistry'
+        secretName: 'azregisterysecret'
+        dockerRegistryEndpoint: 'azcicd'
+    
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'kubernetes-cluster'
+        namespace: 'default'
+        manifests: |
+          $(Pipeline.Workspace)/azurecd/deployment.yaml
+          $(Pipeline.Workspace)/azurecd/service.yaml
