@@ -47,4 +47,4 @@ stages:
       inputs:
         PathtoPublish: '$(Pipeline.Workspace)/azurecd'
         ArtifactName: 'azurecd'
-        publishLocation: 'pipeline'
+        publishLocation: 'Container'
