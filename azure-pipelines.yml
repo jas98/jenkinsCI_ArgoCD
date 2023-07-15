@@ -39,11 +39,11 @@ stages:
       inputs:
         SourceFolder: 'azurecd/'
         Contents: '*.yaml'
-        TargetFolder: '$(Pipeline.Workspace)/azurecd'
+        TargetFolder: '$(Pipeline.Workspace)/s/azurecd'
         
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Pipeline.Workspace)/azurecd'
+        PathtoPublish: '$(Pipeline.Workspace)/s/azurecd'
         ArtifactName: 'azurecd'
         publishLocation: 'pipeline'
 
