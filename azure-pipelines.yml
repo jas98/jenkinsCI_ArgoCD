@@ -35,16 +35,12 @@ stages:
         tags: |
           $(tag)
           latest
-    - task: CopyFiles@2
-      inputs:
-        SourceFolder: 'azurecd/'
-        Contents: '*.yaml'
-        TargetFolder: '$(Pipeline.Workspace)/azurecd'
+ 
         
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Pipeline.Workspace)/azurecd'
-        ArtifactName: 'azurecd'
+        PathtoPublish: '$(Pipeline.Workspace)/s/azurecd'
+        ArtifactName: 'manifests'
         publishLocation: 'pipeline'
 
 - stage: Deploy 
@@ -60,8 +56,8 @@ stages:
     - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
-        artifactName: 'azurecd'
-        targetPath: '$(Pipeline.Workspace)/new'
+        artifactName: 'manifests'
+        targetPath: '$(Pipeline.Workspace)/manifests'
     - task: KubernetesManifest@1
       inputs:
         action: 'createSecret'
