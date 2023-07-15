@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: jashan98/nodeapp:replaceImageTag
+        image: jashan98/nodeapp:45
         ports:
         - containerPort: 8080
