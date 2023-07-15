@@ -75,5 +75,5 @@ stages:
         kubernetesServiceConnection: 'kubernetes-cluster'
         namespace: 'default'
         manifests: |
-          $(Pipeline.Workspace)/new/deployment.yaml
-          $(Pipeline.Workspace)/new/service.yaml
+          $(Pipeline.Workspace)/manifests/deployment.yaml
+          $(Pipeline.Workspace)/manifests/service.yaml
