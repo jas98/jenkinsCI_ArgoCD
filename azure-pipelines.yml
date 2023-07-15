@@ -48,6 +48,7 @@ stages:
         publishLocation: 'pipeline'
 
 - stage: Deploy 
+  dependsOn: Build
   displayName: Deploy on kubernetes
   jobs:
   - job: Deploy
@@ -55,6 +56,12 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'azurecd'
+        targetPath: '$(Pipeline.Workspace)/azurecd'
     - task: KubernetesManifest@1
       inputs:
         action: 'createSecret'
