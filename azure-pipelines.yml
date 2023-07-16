@@ -12,6 +12,7 @@ variables:
   containerRegistry: 'azcicd.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
+  secretaztoken: 'a7CvSI5b2UIcT9DCV/FTTjFByOS4QzZp7fcZDsjjz2+ACRCZSunk'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -58,15 +59,7 @@ stages:
         buildType: 'current'
         artifactName: 'manifests'
         targetPath: '$(Pipeline.Workspace)/manifests'
-    - task: KubernetesManifest@1
-      inputs:
-        action: 'createSecret'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'kubernetes-cluster'
-        namespace: 'default'
-        secretType: 'dockerRegistry'
-        secretName: 'azregisterysecret'
-        dockerRegistryEndpoint: 'azcicd'
+    
     
     - task: KubernetesManifest@1
       inputs:
@@ -77,3 +70,4 @@ stages:
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yaml
           $(Pipeline.Workspace)/manifests/service.yaml
+        imagePullSecrets: $(secretaztoken)
