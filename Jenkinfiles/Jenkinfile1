@@ -1,11 +1,11 @@
 
 pipeline {
-    agent { label 'slave1' }
+    agent any
     stages {
         stage('Github') {
             steps {
                 echo 'Connecting to Github'
-                git branch: 'main', url: 'https://github.com/jas98/jenkins-CICD'
+                git branch: 'main', url: 'https://github.com/jas98/jenkinsCI_ArgoCD'
             }
         }
         
@@ -31,7 +31,7 @@ pipeline {
         
          stage('Update Deployment File') {
         environment {
-            GIT_REPO_NAME = "jenkins-CICD"
+            GIT_REPO_NAME = "jenkinsCI_ArgoCD"
             GIT_USER_NAME = "jas98"
         }
         steps {
